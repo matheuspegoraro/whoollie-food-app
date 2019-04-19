@@ -74,7 +74,7 @@ export default class Categories extends Component {
                             <TouchableWithoutFeedback
                                 onPress={() => false}
                             >
-                                <ImageBackground style={{ width: 180, height: 180, margin: 6, }} source={{ uri: `http://technicalassist.com.br/${item.desImagePath}` }}>
+                                <ImageBackground style={{ width: 180, height: 180, margin: 8, }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
                                 </ImageBackground>
                             </TouchableWithoutFeedback>}

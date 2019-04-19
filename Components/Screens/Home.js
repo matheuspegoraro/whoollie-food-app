@@ -30,7 +30,7 @@ export default class Home extends Component {
                     <TouchableOpacity
                         onPress={() => Actions.Categories()}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/menu.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/menuIcon.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => false}
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
 
     imgMenu: {
         margin: 10,
-        width: 90
+        width: 150,
+        height: 200
     }
 
 })

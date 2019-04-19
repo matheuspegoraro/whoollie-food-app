@@ -48,7 +48,7 @@ export default class Categories extends Component {
                         <TouchableOpacity
                             onPress={() => Actions.Options({ idProductCategory: item.idProductCategory }) }
                         >
-                            <ImageBackground style={{ width: null, height: 100, marginTop: 2 }} source={require('../imgs/cat2.jpg')}>
+                            <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                 <Text style={styles.itemName}>{item.desName}</Text>
                             </ImageBackground>
 
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     },
 
     itemName: {
-        marginTop: 1,
-        paddingTop: 50,
+        marginTop: 70,
+       
         fontSize: 30,
         fontWeight: 'bold',
         color: '#fff'
