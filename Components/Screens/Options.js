@@ -14,9 +14,18 @@ export default class Categories extends Component {
             };
     }
 
+    
+    componentWillMount() {
+        this._loadOptions();
+    }
+
+
+    componentDidUpdate() {
+        this._loadOptions();
+    }
    
 
-    componentWillMount() {
+    _loadOptions() {
         var self = this;
         // requisicao http usando axios
         axios.post('http://technicalassist.com.br/api/filter/products', {
