@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default class Home extends Component {
 
-    componentWillMount() {
+   /* componentWillMount() {
         // requisicao http usando axios
         axios.post('http://technicalassist.com.br/api/device/login', {
             desLogin: 'ipad01',
@@ -21,7 +21,7 @@ export default class Home extends Component {
                 console.log(response);
             })
 
-    }
+    } */
 
     render() {
         return(

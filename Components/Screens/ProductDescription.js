@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import axios from 'axios';
-import { Actions } from 'react-native-router-flux';
 
 export default class Categories extends Component {
 
@@ -9,7 +8,7 @@ export default class Categories extends Component {
         super(props) 
 
         this.state = { 
-            options: [],
+            productInfo: [],
             categoryId: 0
 
             };
@@ -17,40 +16,32 @@ export default class Categories extends Component {
 
     
     componentWillMount() {
-        this._loadOptions();
+        this._loadInfo();
     }
-
 
     componentDidUpdate() {
-        this._loadOptions();
+        this._loadInfo();
     }
-   
 
-    _loadOptions() {
+    _loadInfo() {
         var self = this;
         // requisicao http usando axios
-        axios.post('http://technicalassist.com.br/api/filter/products', {
-            idProductCategory: this.props.idProductCategory
-
-        })
+        axios.get(`http://technicalassist.com.br/api/products/${this.props.idProduct}`)
             .then(function (response) {
-                var temp = [];
-                response.data.forEach(element => {
-                    temp.push(element)
-                });
-
-                self.setState({ options: temp })
-             
-            })
-            .catch(function (response) {
-                console.log('erro aqui');
+                // handle success
                 console.log(response.data);
-            });
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
     }
+
 
     render() {
         return (
-            <View style={styles.container}>
+         /*   <View style={styles.container}>
                 <TouchableWithoutFeedback 
                     onPress={() => false}
                 >
@@ -68,17 +59,18 @@ export default class Categories extends Component {
                         renderItem={({ item }) =>
 
                             <TouchableWithoutFeedback
-                                onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
+                                onPress={() => false}
                             >
                                 <ImageBackground style={{ width: 180, height: 180, margin: 8, }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
-                                    <Text style={styles.itemName}>{item.idProduct}</Text>
+                                    <Text style={styles.itemName}>{item.desName}</Text>
                                 </ImageBackground>
                             </TouchableWithoutFeedback>}
                     >
 
                     </FlatList>
                 </View>
-            </View>
+            </View> */
+            <Text style={{ flex: 1, alignContent: 'center' }}>{this.props.idProduct}</Text>
         );
     }
 }
@@ -89,33 +81,5 @@ const styles = StyleSheet.create({
        flex: 1,
        marginTop: 50
     },
-
-    kart: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#80ccff'
-    },
-
-    text: {
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-
-    body: {
-        flex: 9,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    itemName: {
-        fontSize: 19,
-        fontWeight: 'bold',
-        color: '#fff',
-        borderColor: '#d6d7da',
-        marginTop: 135,
-        marginLeft: 2
-    }
 
 })
