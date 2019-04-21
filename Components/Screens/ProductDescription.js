@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 
 export default class Categories extends Component {
 
@@ -8,8 +9,7 @@ export default class Categories extends Component {
         super(props) 
 
         this.state = { 
-            productInfo: [],
-            categoryId: 0
+            productInfo: []
 
             };
     }
@@ -19,8 +19,10 @@ export default class Categories extends Component {
         this._loadInfo();
     }
 
-    componentDidUpdate() {
-        this._loadInfo();
+    componentDidUpdate(prevProps) {
+        if(this.props.idProduct !== prevProps.idProduct){
+            this._loadInfo();
+        }
     }
 
     _loadInfo() {
@@ -28,8 +30,12 @@ export default class Categories extends Component {
         // requisicao http usando axios
         axios.get(`http://technicalassist.com.br/api/products/${this.props.idProduct}`)
             .then(function (response) {
-                // handle success
-                console.log(response.data);
+                var temp = [];
+                response.data.forEach(element => {
+                    temp.push(element)
+                });
+                self.setState({ productInfo: temp })
+                console.log(self.state.productInfo);
             })
             .catch(function (error) {
                 // handle error
@@ -41,36 +47,33 @@ export default class Categories extends Component {
 
     render() {
         return (
-         /*   <View style={styles.container}>
+            <View style={styles.container}>
+                <View style={styles.child1}>
+                    {/* I needed to map the productInfo by its index and then point to the property I want */}
+                    <Image style={{ height: 200, width: null }} source={{ uri: `http://technicalassist.com.br${this.state.productInfo.map(index => index.desImagePath)}` }} />
+                </View>
+
+                <View style={styles.child2}>
+                    {/* I needed to map the productInfo by its index and then point to the property I want */}
+                    <Text style={styles.title}>{this.state.productInfo.map(index => index.desName)}</Text>
+                    <Text style={styles.title}>R${this.state.productInfo.map(index => index.vlUnity)}</Text>
+                </View>
+
+                <View style={styles.child3}>
+                <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
+                </View>
+
+                <View style={styles.child4}>
                 <TouchableWithoutFeedback 
                     onPress={() => false}
                 >
-                    <View style={styles.kart}>
-                        <Text style={styles.text}>Ver carrinho de pedidos</Text>
+                    <View style={styles.addButton}>
+                        <Text style={styles.textButton}>Adicionar item ao carrinho</Text>
                         <Image style={{ height: 30, width: 30 }} source={require('../imgs/shoppingKart.png')} />
                     </View>
                 </TouchableWithoutFeedback>
-
-                <View style={styles.body}>
-                    <FlatList
-                        data={this.state.options}
-                        keyExtractor={(item, index) => item.desName}
-                        numColumns={2}
-                        renderItem={({ item }) =>
-
-                            <TouchableWithoutFeedback
-                                onPress={() => false}
-                            >
-                                <ImageBackground style={{ width: 180, height: 180, margin: 8, }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
-                                    <Text style={styles.itemName}>{item.desName}</Text>
-                                </ImageBackground>
-                            </TouchableWithoutFeedback>}
-                    >
-
-                    </FlatList>
                 </View>
-            </View> */
-            <Text style={{ flex: 1, alignContent: 'center' }}>{this.props.idProduct}</Text>
+            </View> 
         );
     }
 }
@@ -81,5 +84,49 @@ const styles = StyleSheet.create({
        flex: 1,
        marginTop: 50
     },
+
+    child1: {
+        flex: 3
+    },
+
+    child2: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+
+    child3: {
+        flex: 4,
+        padding: 10
+
+    },
+
+    child4: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'stretch'
+    },
+
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold'
+    },
+
+    description: {
+        fontSize: 22
+    },
+
+    addButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#80ccff',
+        padding: 15
+    },
+
+    textButton: {
+        fontSize: 18
+    }
 
 })

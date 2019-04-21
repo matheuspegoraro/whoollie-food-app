@@ -18,7 +18,8 @@ export default class Categories extends Component {
     }
 
     
-    componentWillMount() {
+    componentDidMount() {
+
         var self = this;
         axios.get('http://technicalassist.com.br/api/categories/products')
             .then(function (response) {
@@ -29,12 +30,12 @@ export default class Categories extends Component {
                 });
 
                 self.setState({ desName: temp })
-
             })
             .catch(function (response) {
                 console.log(response.data);
             })
     }
+
 
     render() {
         return (

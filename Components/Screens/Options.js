@@ -16,15 +16,16 @@ export default class Categories extends Component {
     }
 
     
-    componentWillMount() {
+   componentWillMount() {
         this._loadOptions();
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.props.idProductCategory !== prevProps.idProductCategory){
+            this._loadOptions();
+        }
+    } 
 
-    componentDidUpdate() {
-        this._loadOptions();
-    }
-   
 
     _loadOptions() {
         var self = this;
@@ -45,7 +46,7 @@ export default class Categories extends Component {
             .catch(function (response) {
                 console.log('erro aqui');
                 console.log(response.data);
-            });
+            })
     }
 
     render() {
