@@ -60,7 +60,7 @@ export default class Categories extends Component {
                 </View>
 
                 <View style={styles.child3}>
-                <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
+                    <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
                 </View>
 
                 <View style={styles.child4}>
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 30,
+        fontSize: 27,
         fontWeight: 'bold'
     },
 
     description: {
-        fontSize: 22
+        fontSize: 21
     },
 
     addButton: {

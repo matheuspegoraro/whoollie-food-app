@@ -71,9 +71,11 @@ export default class Categories extends Component {
                             <TouchableWithoutFeedback
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <ImageBackground style={{ width: 180, height: 180, margin: 8, }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
-                                    <Text style={styles.itemName}>{item.idProduct}</Text>
-                                </ImageBackground>
+                                <View style={{ backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10}}>
+                                    <Text style={styles.itemName}>{item.desName}</Text>
+                                    <ImageBackground style={{ width: 180, height: 180, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                                    </ImageBackground>
+                                </View>
                             </TouchableWithoutFeedback>}
                     >
 
@@ -106,17 +108,17 @@ const styles = StyleSheet.create({
 
     body: {
         flex: 9,
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'transparent'
     },
 
     itemName: {
-        fontSize: 19,
+        fontSize: 17,
         fontWeight: 'bold',
-        color: '#fff',
-        borderColor: '#d6d7da',
-        marginTop: 135,
-        marginLeft: 2
+        color: 'midnightblue',
+        alignSelf: 'center'
     }
 
 })
