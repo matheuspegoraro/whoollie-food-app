@@ -40,7 +40,7 @@ export default class Home extends Component {
                 </View>
                 <View>
                     <TouchableOpacity
-                        onPress={() => false}
+                        onPress={() => Actions.Cart()}
                     >
                         <Image style={styles.imgMenu} source={require('../imgs/pedidos.png')} />
                     </TouchableOpacity>

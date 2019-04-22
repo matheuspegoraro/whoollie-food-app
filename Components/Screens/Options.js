@@ -53,7 +53,7 @@ export default class Categories extends Component {
         return (
             <View style={styles.container}>
                 <TouchableWithoutFeedback 
-                    onPress={() => false}
+                    onPress={() => Actions.Cart()}
                 >
                     <View style={styles.kart}>
                         <Text style={styles.text}>Ver carrinho de pedidos</Text>
@@ -71,7 +71,7 @@ export default class Categories extends Component {
                             <TouchableWithoutFeedback
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <View style={{ backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10}}>
+                                <View style={{ backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
                                     <ImageBackground style={{ width: 180, height: 180, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     </ImageBackground>

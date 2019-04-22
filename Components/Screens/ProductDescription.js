@@ -44,6 +44,22 @@ export default class Categories extends Component {
 
     }
 
+    _addItemToCart(){
+        var self = this;
+
+        axios.post('http://technicalassist.com.br/api/cart/add/', {
+            "idProduct": 36
+          })
+          .then(function (response) {
+            alert('deu certo');
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            alert('deu errado');
+            console.log(error);
+          });
+    }
+
 
     render() {
         return (
@@ -65,7 +81,7 @@ export default class Categories extends Component {
 
                 <View style={styles.child4}>
                 <TouchableWithoutFeedback 
-                    onPress={() => false}
+                    onPress={() => this._addItemToCart()}
                 >
                     <View style={styles.addButton}>
                         <Text style={styles.textButton}>Adicionar item ao carrinho</Text>
@@ -82,7 +98,8 @@ export default class Categories extends Component {
 const styles = StyleSheet.create({
     container: {
        flex: 1,
-       marginTop: 50
+       marginTop: 50,
+       backgroundColor: '#ebebe0'
     },
 
     child1: {
@@ -92,12 +109,19 @@ const styles = StyleSheet.create({
     child2: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        marginBottom: 5,
+        marginTop: 5
     },
 
     child3: {
         flex: 4,
-        padding: 10
+        padding: 10,
+        backgroundColor: 'white',
+        borderRadius: 10
 
     },
 
