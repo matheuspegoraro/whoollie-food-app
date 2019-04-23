@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
@@ -50,6 +50,15 @@ export default class Categories extends Component {
         axios.post(`http://technicalassist.com.br/api/cart/add/${this.props.idProduct}`)
           .then(function (response) {
             console.log(response.data)
+            Alert.alert(
+                'Item adicionado ao carrinho!',
+                'Para concluir o pedido vá até o carrinho :) ',
+                [
+                  {text: 'Ir ao carrinho!', onPress: () => Actions.Cart()},
+                  {text: 'Incluir mais itens!', onPress: () => Actions.Categories()}
+                ],
+                { cancelable: true }
+              )
           })
           .catch(function (error) {
             console.log(error);

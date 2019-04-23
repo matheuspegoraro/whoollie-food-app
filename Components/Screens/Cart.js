@@ -18,10 +18,21 @@ export default class Cart extends Component {
 
 
     componentDidMount() {
+        var self = this;
+
         axios.get('http://technicalassist.com.br/api/cart')
         .then(function (response) {
-            // handle success
             console.log(response.data);
+
+            var temp = [];
+            response.data.forEach(element => {
+                temp.push(element)
+            });
+
+            self.state.setState({ cartOptions: temp })
+
+            console.log(cartOptions)
+
         })
         .catch(function (error) {
             // handle error
