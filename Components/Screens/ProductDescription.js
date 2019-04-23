@@ -47,15 +47,11 @@ export default class Categories extends Component {
     _addItemToCart(){
         var self = this;
 
-        axios.post('http://technicalassist.com.br/api/cart/add/', {
-            "idProduct": 36
-          })
+        axios.post(`http://technicalassist.com.br/api/cart/add/${this.props.idProduct}`)
           .then(function (response) {
-            alert('deu certo');
             console.log(response.data)
           })
           .catch(function (error) {
-            alert('deu errado');
             console.log(error);
           });
     }

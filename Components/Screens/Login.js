@@ -27,7 +27,20 @@ export default class Login extends Component {
         })
             .then(function (response) {
                 console.log(response.data.message);
-                if (response.data.message === 'Logado com sucesso!') {
+                if (response.data.login) {
+
+                    axios.post('http://technicalassist.com.br/api/open/order', {
+                        desName: 'Marlon',
+                        idBoard: 1
+                    })
+                        .then(function (res) {
+                            console.log(res.data);
+                        })
+                        .catch(function (res) {
+                            console.log(res.message);
+                        })
+
+
                     Actions.Home();
                 } else {
                     Alert.alert('Usuário ou senha incorretos!')
@@ -36,6 +49,9 @@ export default class Login extends Component {
             .catch(function (response) {
                 console.log(response);
             })
+
+
+
 
     }
 

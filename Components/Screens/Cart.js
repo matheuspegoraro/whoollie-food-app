@@ -16,6 +16,32 @@ export default class Cart extends Component {
         }
     }
 
+
+    componentDidMount() {
+        axios.get('http://technicalassist.com.br/api/cart')
+        .then(function (response) {
+            // handle success
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error.message);
+        });
+    }
+
+
+    _sendCart(){
+        axios.post('http://technicalassist.com.br/api/request')
+            .then(function (response) {
+                // handle success
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error.message);
+            });
+    }
+
     render() {
         return(
             <View style={styles.container}>
@@ -24,15 +50,15 @@ export default class Cart extends Component {
                 </View>
 
                 <View style={styles.child2}>
-                    
+
                 </View>
 
                 <TouchableWithoutFeedback
-                onPress={() => Alert.alert('Pedido feito com sucesso, basta aguardar!')}
+                    onPress={() => this._sendCart()}
                 >
-                <View style={styles.child3}>
-                    <Text style={styles.textBottom}>Concluir pedido</Text>
-                </View>
+                    <View style={styles.child3}>
+                        <Text style={styles.textBottom}>Concluir pedido</Text>
+                    </View>
                 </TouchableWithoutFeedback>
             </View>
         );
