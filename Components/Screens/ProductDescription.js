@@ -10,7 +10,7 @@ export default class Categories extends Component {
 
         this.state = { 
             productInfo: [],
-            qtdProduct: 0
+            qtdProduct: 1
 
             };
     }
@@ -22,7 +22,19 @@ export default class Categories extends Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.idProduct !== prevProps.idProduct){
+            this.setState({ qtdProduct: 1 })
             this._loadInfo();
+        }
+    }
+
+
+    _countQuantity(operation) {
+        if (operation == 'plus') {
+            this.setState({ qtdProduct: this.state.qtdProduct + 1 })
+        } else {
+            if (this.state.qtdProduct > 1) {
+                this.setState({ qtdProduct: this.state.qtdProduct - 1 })
+            }
         }
     }
 
@@ -48,7 +60,11 @@ export default class Categories extends Component {
     _addItemToCart(){
         var self = this;
 
-        axios.post(`http://technicalassist.com.br/api/cart/add/${this.props.idProduct}`)
+        axios.post('http://technicalassist.com.br/api/cart/add', {
+            "idProduct": this.props.idProduct,
+            "vlTotal": this.state.qtdProduct
+
+        })
           .then(function (response) {
             console.log(response.data)
             Alert.alert(
@@ -85,16 +101,24 @@ export default class Categories extends Component {
                     <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
                 </View>
 
-                <View style={{ flex: 0.6, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'red' }}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>-</Text>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{this.state.qtdProduct}</Text>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>+</Text>
+                <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', borderRadius: 10, marginTop: 3 }}>
+                    <TouchableWithoutFeedback
+                        onPress={() => this._countQuantity('minus')}
+                    >
+                        <Image style={{ width: 25, height: 25 }} source={require('../imgs/minus.png')} />
+                    </TouchableWithoutFeedback>
+                        <Text style={{ fontSize: 31, fontWeight: 'bold', marginLeft: 25, marginRight: 25 }}>{this.state.qtdProduct}</Text>
+                    <TouchableWithoutFeedback
+                        onPress={() => this._countQuantity('plus')}
+                    >
+                        <Image style={{ width: 25, height: 25 }} source={require('../imgs/plus.png')} />
+                    </TouchableWithoutFeedback>
                 </View>
 
                 <View style={styles.child4}>
                     <View style={styles.addButton}>
                         <View style={styles.price}>
-                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity)}</Text>
+                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity)*this.state.qtdProduct}</Text>
                         </View>
                         <TouchableWithoutFeedback
                             onPress={() => this._addItemToCart()}
@@ -130,8 +154,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
-        marginBottom: 5,
-        marginTop: 5
+        marginBottom: 3,
+        marginTop: 3
     },
 
     child3: {
