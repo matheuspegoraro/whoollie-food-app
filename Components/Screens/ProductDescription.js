@@ -9,7 +9,8 @@ export default class Categories extends Component {
         super(props) 
 
         this.state = { 
-            productInfo: []
+            productInfo: [],
+            qtdProduct: 0
 
             };
     }
@@ -84,15 +85,26 @@ export default class Categories extends Component {
                     <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
                 </View>
 
+                <View style={{ flex: 0.6, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'red' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>-</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{this.state.qtdProduct}</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>+</Text>
+                </View>
+
                 <View style={styles.child4}>
-                <TouchableWithoutFeedback 
-                    onPress={() => this._addItemToCart()}
-                >
                     <View style={styles.addButton}>
-                        <Text style={styles.textButton}>Adicionar item ao carrinho</Text>
-                        <Image style={{ height: 30, width: 30 }} source={require('../imgs/shoppingKart.png')} />
+                        <View style={styles.price}>
+                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity)}</Text>
+                        </View>
+                        <TouchableWithoutFeedback
+                            onPress={() => this._addItemToCart()}
+                        >
+                            <View style={{ backgroundColor: '#3cb371', borderRadius: 10, flexDirection: 'row', padding: 10 }}>
+                                <Text style={styles.textButton}>Adicionar ao carrinho</Text>
+                                <Image style={{ height: 30, width: 30 }} source={require('../imgs/shoppingKart.png')} />
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
-                </TouchableWithoutFeedback>
                 </View>
             </View> 
         );
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
     },
 
     child3: {
-        flex: 4,
+        flex: 3,
         padding: 10,
         backgroundColor: 'white',
         borderRadius: 10
@@ -131,10 +143,8 @@ const styles = StyleSheet.create({
     },
 
     child4: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'stretch'
+        flex: 1
+       
     },
 
     title: {
@@ -147,15 +157,29 @@ const styles = StyleSheet.create({
     },
 
     addButton: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#80ccff',
-        padding: 15
+        justifyContent: 'space-around'
     },
 
     textButton: {
-        fontSize: 18
+        fontSize: 18,
+        color: '#fff',
+        fontWeight: 'bold'
+        
+    },
+
+    price: {
+        borderWidth: 0.5,
+        padding: 5,
+        borderRadius: 10,
+        backgroundColor: '#fff'
+    },
+
+    textPrice: {
+        fontSize: 21,
+        fontWeight: 'bold'
     }
 
 })
