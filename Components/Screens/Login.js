@@ -37,7 +37,7 @@ export default class Login extends Component {
                             console.log(res.data);
                         })
                         .catch(function (res) {
-                            console.log(res.message);
+                            console.log(res.response);
                         })
 
 
@@ -47,7 +47,7 @@ export default class Login extends Component {
                 }
             })
             .catch(function (response) {
-                console.log(response);
+                console.log(response.message);
             })
 
 
