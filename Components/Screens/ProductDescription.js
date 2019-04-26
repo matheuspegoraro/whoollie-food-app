@@ -125,7 +125,6 @@ export default class Categories extends Component {
                         >
                             <View style={{ backgroundColor: '#3cb371', borderRadius: 10, flexDirection: 'row', padding: 10 }}>
                                 <Text style={styles.textButton}>Adicionar ao carrinho</Text>
-                                <Image style={{ height: 30, width: 30 }} source={require('../imgs/shoppingKart.png')} />
                             </View>
                         </TouchableWithoutFeedback>
                     </View>

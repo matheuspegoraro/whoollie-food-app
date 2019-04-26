@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
@@ -11,12 +11,14 @@ export default class Cart extends Component {
 
         this.state = {
             cartOptions: [],
-            isCartLoaded: false
+            isCartLoaded: false,
+            number: 1
+
         };
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         var self = this;
 
         axios.get('http://technicalassist.com.br/api/cart')
@@ -27,7 +29,7 @@ export default class Cart extends Component {
                 temp.push(element)
             });
             self.setState({ cartOptions: temp })
-            if(temp.length > 0){ self.setState({ isCartLoaded: true }) }
+            if(temp.length > 0){ self.setState({ isCartLoaded: true, number: 0 }) }
             console.log(self.state.cartOptions)
 
         })
@@ -76,6 +78,44 @@ export default class Cart extends Component {
     }
 
 
+    _removeItemFromCart(idProduct){
+        var self = this;
+
+        axios.post(`http://technicalassist.com.br/api/cart/remove/all/${idProduct}`)
+        .then(function (response) {
+            // handle success
+
+            axios.get('http://technicalassist.com.br/api/cart')
+            .then(function (response) {
+                console.log(response.data);
+                var temp = [];
+                response.data.forEach(element => {
+                    temp.push(element)
+                });
+                self.setState({ cartOptions: temp })
+                if (temp.length > 0) { 
+                    self.setState({ isCartLoaded: true }) 
+                } else {  self.setState({ isCartLoaded: false }) }
+
+
+                console.log(self.state.cartOptions)
+                
+    
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+            
+
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error.message);
+        });
+    }
+
+
     _isCartLoaded() {
         if (this.state.isCartLoaded) {
             return (
@@ -83,10 +123,26 @@ export default class Cart extends Component {
                     data={this.state.cartOptions}
                     keyExtractor={(item, index) => item.desName}
                     renderItem={({ item }) =>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{ fontSize: 18 }}>{item.qtTotal}</Text>
-                            <Text style={{ fontSize: 18 }}>{item.desName}</Text>
-                            <Text style={{ fontSize: 18 }}>{item.vlUnity}</Text>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, backgroundColor: this.state.number++ % 2 === 0 ? 'lightgray' : 'darkgray' }}>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>{item.qtTotal} X</Text>
+                            </View>
+
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>{item.desName}</Text>
+                            </View>
+
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>R${item.qtTotal * item.vlUnity}</Text>
+                            </View>
+
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                <TouchableOpacity
+                                    onPress={() => this._removeItemFromCart(item.idProduct)}
+                                >
+                                    <Image style={{ width: 30, height: 30 }} source={require('../imgs/deleteIcon.png')} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     }
                 >
@@ -106,12 +162,6 @@ export default class Cart extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <View style={styles.child1}>
-                    <Text style={styles.textTop}>Qtd.</Text>
-                    <Text style={styles.textTop}>Nome</Text>
-                    <Text style={styles.textTop}>Valor Unitário</Text>
-                </View>
-
                 <View style={styles.child2}>
                     {this._isCartLoaded()}
                 </View>
@@ -151,7 +201,8 @@ const styles = StyleSheet.create({
     },
 
     child2: {
-        flex: 5
+        flex: 5,
+        marginTop: 55
     },
 
     child3: {
