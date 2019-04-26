@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
@@ -68,7 +68,7 @@ export default class Categories extends Component {
                         numColumns={2}
                         renderItem={({ item }) =>
 
-                            <TouchableWithoutFeedback
+                            <TouchableOpacity
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
                                 <View style={{ backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
@@ -76,7 +76,7 @@ export default class Categories extends Component {
                                     <ImageBackground style={{ width: 180, height: 180, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     </ImageBackground>
                                 </View>
-                            </TouchableWithoutFeedback>}
+                            </TouchableOpacity>}
                     >
 
                     </FlatList>

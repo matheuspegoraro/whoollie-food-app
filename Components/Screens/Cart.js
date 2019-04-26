@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
@@ -12,7 +12,8 @@ export default class Cart extends Component {
         this.state = {
             cartOptions: [],
             isCartLoaded: false,
-            number: 1
+            number: 1,
+            isButtonPressed: false
 
         };
     }
@@ -42,11 +43,13 @@ export default class Cart extends Component {
 
     _sendCart(){
         var self = this;
+        this.setState({ isButtonPressed: true })
 
         if(this.state.cartOptions.length > 0) {
         axios.post('http://technicalassist.com.br/api/request')
             .then(function (response) {
                 // handle success
+                self.setState({ isButtonPressed: false })
                 console.log(response.data);
                 self.setState({ cartOptions: [], isCartLoaded: false });
                 Alert.alert(
@@ -65,6 +68,7 @@ export default class Cart extends Component {
             });
 
         } else {
+            self.setState({ isButtonPressed: false })
             Alert.alert(
                 'Carrinho vazio!',
                 'Para fazer um pedido veja o menu de opções :)',
@@ -80,6 +84,7 @@ export default class Cart extends Component {
 
     _removeItemFromCart(idProduct){
         var self = this;
+        this.setState({ isButtonPressed: true })
 
         axios.post(`http://technicalassist.com.br/api/cart/remove/all/${idProduct}`)
         .then(function (response) {
@@ -92,10 +97,10 @@ export default class Cart extends Component {
                 response.data.forEach(element => {
                     temp.push(element)
                 });
-                self.setState({ cartOptions: temp })
+                self.setState({ cartOptions: temp, isButtonPressed: false })
                 if (temp.length > 0) { 
                     self.setState({ isCartLoaded: true }) 
-                } else {  self.setState({ isCartLoaded: false }) }
+                } else { self.setState({ isCartLoaded: false }) }
 
 
                 console.log(self.state.cartOptions)
@@ -159,13 +164,13 @@ export default class Cart extends Component {
         }
     }
 
-    render() {
-        return(
-            <View style={styles.container}>
-                <View style={styles.child2}>
-                    {this._isCartLoaded()}
-                </View>
-
+    _isButtonPressed() {
+        if (this.state.isButtonPressed) {
+            return (
+                <ActivityIndicator size='large' />
+            );
+        } else {
+            return (
                 <TouchableWithoutFeedback
                     onPress={() => this._sendCart()}
                 >
@@ -173,6 +178,17 @@ export default class Cart extends Component {
                         <Text style={styles.textBottom}>Concluir pedido</Text>
                     </View>
                 </TouchableWithoutFeedback>
+            );
+        }
+    }
+
+    render() {
+        return(
+            <View style={styles.container}>
+                <View style={styles.child2}>
+                    {this._isCartLoaded()}
+                </View>
+                {this._isButtonPressed()}
             </View>
         );
     }

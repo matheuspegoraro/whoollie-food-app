@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
@@ -10,7 +10,8 @@ export default class Categories extends Component {
 
         this.state = { 
             productInfo: [],
-            qtdProduct: 1
+            qtdProduct: 1,
+            isButtonPressed: false
 
             };
     }
@@ -60,6 +61,8 @@ export default class Categories extends Component {
     _addItemToCart(){
         var self = this;
 
+        this.setState({ isButtonPressed: true })
+
         axios.post('http://technicalassist.com.br/api/cart/add', {
             "idProduct": this.props.idProduct,
             "vlTotal": this.state.qtdProduct
@@ -67,6 +70,7 @@ export default class Categories extends Component {
         })
           .then(function (response) {
             console.log(response.data)
+            self.setState({ isButtonPressed: false })
             Alert.alert(
                 'Item adicionado ao carrinho!',
                 'Para concluir o pedido vá até o carrinho :) ',
@@ -80,6 +84,27 @@ export default class Categories extends Component {
           .catch(function (error) {
             console.log(error);
           });
+    }
+
+
+    _isButtonPressed() {
+        if (this.state.isButtonPressed) {
+            return (
+                <ActivityIndicator size='large' />
+            );
+        } else {
+            return (
+                <View>
+                <TouchableOpacity
+                    onPress={() => this._addItemToCart()}
+                >
+                    <View style={{ backgroundColor: '#3cb371', borderRadius: 10, flexDirection: 'row', padding: 10 }}>
+                        <Text style={styles.textButton}>Adicionar ao carrinho</Text>
+                    </View>
+                </TouchableOpacity>
+                </View>
+            );
+        }
     }
 
 
@@ -101,7 +126,7 @@ export default class Categories extends Component {
                     <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
                 </View>
 
-                <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', borderRadius: 10, marginTop: 3 }}>
+                <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>
                     <TouchableWithoutFeedback
                         onPress={() => this._countQuantity('minus')}
                     >
@@ -118,15 +143,9 @@ export default class Categories extends Component {
                 <View style={styles.child4}>
                     <View style={styles.addButton}>
                         <View style={styles.price}>
-                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity)*this.state.qtdProduct}</Text>
+                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct}</Text>
                         </View>
-                        <TouchableWithoutFeedback
-                            onPress={() => this._addItemToCart()}
-                        >
-                            <View style={{ backgroundColor: '#3cb371', borderRadius: 10, flexDirection: 'row', padding: 10 }}>
-                                <Text style={styles.textButton}>Adicionar ao carrinho</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
+                        {this._isButtonPressed()}
                     </View>
                 </View>
             </View> 
@@ -160,13 +179,14 @@ const styles = StyleSheet.create({
     child3: {
         flex: 3,
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
         borderRadius: 10
 
     },
 
     child4: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
        
     },
 
