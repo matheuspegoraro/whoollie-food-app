@@ -12,13 +12,16 @@ export default class Login extends Component {
         this.state = {
             login: '',
             password: '',
-            loading: false
+            loading: false,
+            isButtonPressed: false
 
         }
     }
 
 
     _login(login, password) {
+        var self = this;
+        this.setState({ isButtonPressed: true })
         // requisicao http usando axios
         axios.post('http://technicalassist.com.br/api/device/login', {
             desLogin: login,
@@ -28,6 +31,7 @@ export default class Login extends Component {
             .then(function (response) {
                 console.log(response.data.message);
                 if (response.data.login) {
+                    self.setState({ isButtonPressed: false })
 
                     axios.post('http://technicalassist.com.br/api/open/order', {
                         desName: 'Marlon',
@@ -43,17 +47,34 @@ export default class Login extends Component {
 
                     Actions.Home();
                 } else {
+                    self.setState({ isButtonPressed: false })
                     Alert.alert('Usuário ou senha incorretos!')
                 }
             })
             .catch(function (response) {
+                self.setState({ isButtonPressed: false })
                 console.log(response);
             })
 
-
-
-
     }
+
+    _isButtonPressed() {
+        if (this.state.isButtonPressed) {
+            return (
+                <ActivityIndicator size='large' />
+            )
+        } else {
+            return (
+                <TouchableOpacity
+                    onPress={() => this._login(this.state.login, this.state.password)}
+                >
+                    <Text style={styles.button}>Entrar</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
+
+
 
     render() {
         return (
@@ -76,11 +97,7 @@ export default class Login extends Component {
                         placeholderTextColor={'black'}
                         secureTextEntry={true}
                     />
-                    <TouchableOpacity
-                        onPress={() => this._login(this.state.login, this.state.password)}
-                    >
-                        <Text style={styles.button}>Entrar</Text>
-                    </TouchableOpacity>
+                   { this._isButtonPressed() }
                     
                 </View>
                 <View style={styles.bottom}>
@@ -98,7 +115,7 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: 680
+        flex: 1
     },
 
     name: {
@@ -139,7 +156,8 @@ const styles = StyleSheet.create({
 
     bottom: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
 
     textbottom: {
