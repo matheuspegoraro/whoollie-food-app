@@ -10,7 +10,8 @@ export default class Login extends Component {
         super(props)
 
         this.state = {
-            name: ''
+            name: '',
+            isButtonPressed: false
 
         }
     }
@@ -18,19 +19,49 @@ export default class Login extends Component {
     _sendClientInfo(clientName) {
         var self = this;
 
-        axios.post('http://technicalassist.com.br/api/open/order', {
-            desName: clientName
-        })
-            .then(function (res) {
-                console.log(res.data);
+        this.setState({ isButtonPressed: true })
 
-                Actions.Home();
+        if (clientName !== '') {
 
+            axios.post('http://technicalassist.com.br/api/open/order', {
+                desName: clientName
             })
-            .catch(function (res) {
-                console.log(res.response);
-            })
+                .then(function (res) {
+                    console.log(res.data);
 
+                    self.setState({ name: '', isButtonPressed: false })
+                    Actions.Home();
+
+                })
+                .catch(function (res) {
+                    console.log(res.response);
+                    self.setState({ isButtonPressed: false })
+                    alert('erro')
+                })
+
+        } else {
+            self.setState({ isButtonPressed: false })
+            Alert.alert('Insira um nome válido!')
+        }
+
+    }
+
+
+    _isButtonPressed() {
+        if(this.state.isButtonPressed) {
+            return(
+                <ActivityIndicator size= 'large' />
+            )
+        } else {
+            return (
+                <Button
+                onPress={() => this._sendClientInfo(this.state.name)}
+                title="Abrir comanda"
+                color="#841584"
+                accessibilityLabel="Abrir comanda para esse cliente"
+            />
+            )
+        }
     }
 
 
@@ -48,12 +79,8 @@ export default class Login extends Component {
                     placeholderTextColor={'white'}
                 />
 
-                <Button
-                    onPress={() => this._sendClientInfo(this.state.name)}
-                    title="Abrir comanda"
-                    color="#841584" 
-                    accessibilityLabel="Abrir comanda para esse cliente"
-                />
+                {this._isButtonPressed()}
+               
             </View>
             </ImageBackground>
         )
