@@ -31,9 +31,7 @@ export default class Login extends Component {
             .then(function (response) {
                 console.log(response.data.message);
                 if (response.data.login) {
-                    self.setState({ isButtonPressed: false })
-
-                    axios.post('http://technicalassist.com.br/api/open/order', {
+                /* axios.post('http://technicalassist.com.br/api/open/order', {
                         desName: 'Marlon',
                         idBoard: 1
                     })
@@ -42,11 +40,10 @@ export default class Login extends Component {
                         })
                         .catch(function (res) {
                             console.log(res.response);
-                        })
-
-
-                    Actions.Home();
-                } else {
+                        }) */
+                    self.setState({ isButtonPressed: false })
+                    Actions.ClientInfo();
+                } else { 
                     self.setState({ isButtonPressed: false })
                     Alert.alert('Usuário ou senha incorretos!')
                 }
@@ -65,11 +62,18 @@ export default class Login extends Component {
             )
         } else {
             return (
-                <TouchableOpacity
+            /*    <TouchableOpacity
                     onPress={() => this._login(this.state.login, this.state.password)}
                 >
                     <Text style={styles.button}>Entrar</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */
+
+                <Button
+                    onPress={() => this._login(this.state.login, this.state.password)}
+                    title="Entrar"
+                    color="green"
+                    accessibilityLabel="Fazer login no aplicativo"
+                />
             )
         }
     }

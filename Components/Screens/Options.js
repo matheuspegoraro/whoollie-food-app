@@ -67,13 +67,13 @@ export default class Categories extends Component {
                         keyExtractor={(item, index) => item.desName}
                         numColumns={2}
                         renderItem={({ item }) =>
-
+                    
                             <TouchableOpacity
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <View style={{ backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
+                                <View style={{ flex: 1, backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
-                                    <ImageBackground style={{ width: 180, height: 180, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     </ImageBackground>
                                 </View>
                             </TouchableOpacity>}
