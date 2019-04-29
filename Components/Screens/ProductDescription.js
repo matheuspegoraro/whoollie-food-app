@@ -18,7 +18,7 @@ export default class Categories extends Component {
 
     
     componentWillMount() {
-        this._loadInfo();
+       this._loadInfo();
     }
 
     componentDidUpdate(prevProps) {
@@ -107,13 +107,26 @@ export default class Categories extends Component {
         }
     }
 
+  /*  _checksIngredients() {
+        if( this.state.productInfo[0].listIngredients != false){
+            console.log('diferente de false')
+            console.log(this.state.productInfo)
+           
+           
+        } else {
+            console.log('igual a false')
+            console.log(this.state.productInfo)
+        }
+    } */
+
+
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.child1}>
                     {/* I needed to map the productInfo by its index and then point to the property I want */}
-                    <Image style={{ height: 200, width: null }} source={{ uri: `http://technicalassist.com.br${this.state.productInfo.map(index => index.desImagePath)}` }} />
+                    <Image style={{ flexGrow: 1 }} source={{ uri: `http://technicalassist.com.br${this.state.productInfo.map(index => index.desImagePath)}` }} />
                 </View>
 
                 <View style={styles.child2}>
@@ -123,7 +136,7 @@ export default class Categories extends Component {
                 </View>
 
                 <View style={styles.child3}>
-                    <Text style={styles.description}>{this.state.productInfo.map(index => index.desNote)}</Text>
+                    <Text style={styles.description}>{ this.state.productInfo.map(index => index.desName) }</Text>
                 </View>
 
                 <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, Modal, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 
@@ -58,7 +58,9 @@ export default class Login extends Component {
     _isButtonPressed() {
         if (this.state.isButtonPressed) {
             return (
-                <ActivityIndicator size='large' />
+
+             <ActivityIndicator size='large' />
+
             )
         } else {
             return (
@@ -72,7 +74,7 @@ export default class Login extends Component {
                     onPress={() => this._login(this.state.login, this.state.password)}
                     title="Entrar"
                     color="green"
-                    accessibilityLabel="Fazer login no aplicativo"
+                    accessibilityLabel="Fazer login"
                 />
             )
         }
@@ -166,7 +168,6 @@ const styles = StyleSheet.create({
 
     textbottom: {
         color: '#fff',
-        marginTop: 60,
         fontSize: 18
     }
 });

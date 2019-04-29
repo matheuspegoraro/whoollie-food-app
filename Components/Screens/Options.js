@@ -73,7 +73,7 @@ export default class Categories extends Component {
                             >
                                 <View style={{ flex: 1, backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
-                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }}  blurRadius={1} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     </ImageBackground>
                                 </View>
                             </TouchableOpacity>}

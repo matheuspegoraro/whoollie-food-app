@@ -30,24 +30,24 @@ export default class Home extends Component {
                     <TouchableOpacity
                         onPress={() => Actions.Categories()}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/menuIcon.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/menu.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => false}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/pedido.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/bill.png')} />
                     </TouchableOpacity>
                 </View>
                 <View>
                     <TouchableOpacity
                         onPress={() => Actions.Cart()}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/pedidos.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/cart.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => false}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/sobre.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/about.png')} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -57,7 +57,7 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FAAF18',
+        backgroundColor: 'cornsilk',
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     },
 
     imgMenu: {
-        margin: 10,
-        width: 150,
-        height: 200
+        margin: 20,
+        width: 130,
+        height: 170
     }
 
 })
