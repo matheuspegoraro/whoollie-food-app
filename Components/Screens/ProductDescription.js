@@ -107,8 +107,8 @@ export default class Categories extends Component {
         }
     }
 
-  /*  _checksIngredients() {
-        if( this.state.productInfo[0].listIngredients != false){
+   _checksIngredients() {
+        if( this.state.productInfo.listIngredients !== false){
             console.log('diferente de false')
             console.log(this.state.productInfo)
            
@@ -117,7 +117,7 @@ export default class Categories extends Component {
             console.log('igual a false')
             console.log(this.state.productInfo)
         }
-    } */
+    } 
 
 
 
@@ -137,6 +137,7 @@ export default class Categories extends Component {
 
                 <View style={styles.child3}>
                     <Text style={styles.description}>{ this.state.productInfo.map(index => index.desName) }</Text>
+                    <Text style={styles.description}>{ this._checksIngredients() }</Text>
                 </View>
 
                 <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>

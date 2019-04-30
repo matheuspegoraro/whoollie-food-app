@@ -54,12 +54,23 @@ export default class Login extends Component {
             )
         } else {
             return (
-                <Button
+
+
+                <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
+                    <TouchableOpacity
+                        onPress={() => this._sendClientInfo(this.state.name)}
+                    >
+                        <Text style={styles.button}>Abrir comanda</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+            /*    <Button
                 onPress={() => this._sendClientInfo(this.state.name)}
                 title="Abrir comanda"
                 color="#841584"
                 accessibilityLabel="Abrir comanda para esse cliente"
-            />
+            />  */
             )
         }
     }
@@ -75,8 +86,8 @@ export default class Login extends Component {
                 <TextInput
                     style={styles.textinput}
                     onChangeText={ text => this.setState({ name: text }) }
-                    placeholder={'Insira um nome'}
-                    placeholderTextColor={'white'}
+                    placeholder={'Insira nome do cliente'}
+                    placeholderTextColor={'black'}
                 />
 
                 {this._isButtonPressed()}
@@ -96,11 +107,20 @@ const styles = StyleSheet.create({
     },
 
     textinput: {
-        padding: 5,
-        margin: 30,
-        fontSize: 30,
-        color: '#fff',
-        borderBottomWidth: 1
+        padding: 10,
+        margin: 2,
+        height: 50,
+        width: 250,
+        borderColor: 'gray',
+        borderWidth: 1,
+        backgroundColor: '#f2f2f2',
+        alignItems: 'center',
+        fontSize: 22
+    },
+
+    button: {
+        fontSize: 20,
+        color: 'white'
     }
 
 });

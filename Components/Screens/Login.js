@@ -64,18 +64,13 @@ export default class Login extends Component {
             )
         } else {
             return (
-            /*    <TouchableOpacity
-                    onPress={() => this._login(this.state.login, this.state.password)}
-                >
-                    <Text style={styles.button}>Entrar</Text>
-                </TouchableOpacity> */
-
-                <Button
-                    onPress={() => this._login(this.state.login, this.state.password)}
-                    title="Entrar"
-                    color="green"
-                    accessibilityLabel="Fazer login"
-                />
+                <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
+                    <TouchableOpacity
+                        onPress={() => this._login(this.state.login, this.state.password)}
+                    >
+                        <Text style={styles.button}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
             )
         }
     }
@@ -138,13 +133,13 @@ const styles = StyleSheet.create({
 
     textinput: {
         padding: 10,
-        margin: 10,
+        margin: 2,
         height: 50,
-        width: 300,
+        width: 250,
         borderColor: 'gray',
-        borderRadius: 30,
         borderWidth: 1,
-        backgroundColor: '#f2f2f2'
+        backgroundColor: '#f2f2f2',
+        alignItems: 'center'
 
     },
 
@@ -155,9 +150,8 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        fontSize: 30,
-        color: 'green',
-        fontWeight: 'bold'
+        fontSize: 24,
+        color: 'white'
     },
 
     bottom: {
