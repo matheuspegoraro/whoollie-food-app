@@ -59,18 +59,19 @@ export default class Login extends Component {
         if (this.state.isButtonPressed) {
             return (
 
-             <ActivityIndicator size='large' />
+             <ActivityIndicator size='large' color="#00ff00" />
 
             )
         } else {
             return (
-                <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
-                    <TouchableOpacity
-                        onPress={() => this._login(this.state.login, this.state.password)}
-                    >
+                <TouchableOpacity
+                    onPress={() => this._login(this.state.login, this.state.password)}
+                >
+                    <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
                         <Text style={styles.button}>Entrar</Text>
-                    </TouchableOpacity>
-                </View>
+
+                    </View>
+                </TouchableOpacity>
             )
         }
     }

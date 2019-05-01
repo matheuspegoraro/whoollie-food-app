@@ -9,6 +9,7 @@ import Options from './Screens/Options';
 import ProductDescription from './Screens/ProductDescription';
 import Cart from './Screens/Cart';
 import ClientInfo from './Screens/ClientInfo';
+import OpenBill from './Screens/OpenBill';
 
 
 export default props => (
@@ -21,6 +22,7 @@ export default props => (
             <Scene key='Options' direction='vertical' component={Options} title="OPÇÕES" hideNavBar={false} />
             <Scene key='ProductDescription' direction='vertical' component={ProductDescription} title="Descriçao" hideNavBar={false} />
             <Scene key='Cart' direction='vertical' component={Cart} title="Carrinho" hideNavBar={false} />
+            <Scene key='OpenBill' direction='vertical' component={OpenBill} title="Conta aberta" hideNavBar={false} />
         </Stack>
     </Router>
 )

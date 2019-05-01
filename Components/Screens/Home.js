@@ -33,7 +33,7 @@ export default class Home extends Component {
                         <Image style={styles.imgMenu} source={require('../imgs/menu.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => false}
+                        onPress={() => Actions.OpenBill()}
                     >
                         <Image style={styles.imgMenu} source={require('../imgs/bill.png')} />
                     </TouchableOpacity>

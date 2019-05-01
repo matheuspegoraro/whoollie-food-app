@@ -50,27 +50,17 @@ export default class Login extends Component {
     _isButtonPressed() {
         if(this.state.isButtonPressed) {
             return(
-                <ActivityIndicator size= 'large' />
+                <ActivityIndicator size= 'large' color="#00ff00" />
             )
         } else {
             return (
-
-
-                <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
-                    <TouchableOpacity
-                        onPress={() => this._sendClientInfo(this.state.name)}
-                    >
+                <TouchableOpacity
+                    onPress={() => this._sendClientInfo(this.state.name)}
+                >
+                    <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
                         <Text style={styles.button}>Abrir comanda</Text>
-                    </TouchableOpacity>
-                </View>
-
-
-            /*    <Button
-                onPress={() => this._sendClientInfo(this.state.name)}
-                title="Abrir comanda"
-                color="#841584"
-                accessibilityLabel="Abrir comanda para esse cliente"
-            />  */
+                    </View>
+                </TouchableOpacity>
             )
         }
     }
@@ -87,7 +77,7 @@ export default class Login extends Component {
                     style={styles.textinput}
                     onChangeText={ text => this.setState({ name: text }) }
                     placeholder={'Insira nome do cliente'}
-                    placeholderTextColor={'black'}
+                    placeholderTextColor={'gray'}
                 />
 
                 {this._isButtonPressed()}

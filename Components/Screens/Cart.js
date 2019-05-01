@@ -13,7 +13,8 @@ export default class Cart extends Component {
             cartOptions: [],
             isCartLoaded: false,
             number: 1,
-            isButtonPressed: false
+            isButtonPressed: false,
+            totalValue: 0
 
         };
     }
@@ -164,6 +165,16 @@ export default class Cart extends Component {
         }
     }
 
+    _totalValue(){
+        var temp = 0;
+                this.state.cartOptions.forEach(element => {
+                    temp = temp + element.qtTotal*element.vlUnity;
+                });
+
+      return temp;
+
+    }
+
     _isButtonPressed() {
         if (this.state.isButtonPressed) {
             return (
@@ -171,13 +182,19 @@ export default class Cart extends Component {
             );
         } else {
             return (
+                <View style={{ flex: 0.5, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#fff' }}>
+                    <View style={styles.price}>
+                        <Text style={styles.textPrice}> R${ this._totalValue() }</Text>
+                    </View>
+                
                 <TouchableWithoutFeedback
                     onPress={() => this._sendCart()}
                 >
                     <View style={styles.child3}>
-                        <Text style={styles.textBottom}>Concluir pedido</Text>
+                        <Text style={styles.textButton}>Concluir pedido</Text>
                     </View>
                 </TouchableWithoutFeedback>
+                </View>
             );
         }
     }
@@ -202,14 +219,6 @@ const styles = StyleSheet.create({
         
     },
 
-    child1: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        backgroundColor: '#80ccff'
-    },
-
     textTop: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -222,15 +231,27 @@ const styles = StyleSheet.create({
     },
 
     child3: {
-        flex: 0.5,
-        backgroundColor: 'green',
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: '#3cb371',
+        borderRadius: 10,
+        flexDirection: 'row',
+        padding: 10
     },
 
-    textBottom: {
-        fontSize: 23,
-        fontWeight: 'bold',
-        color: '#fff'
+    textButton: {
+        fontSize: 20,
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+
+    price: {
+        borderWidth: 0.5,
+        padding: 5,
+        borderRadius: 10,
+        backgroundColor: '#fff'
+    },
+
+    textPrice: {
+        fontSize: 21,
+        fontWeight: 'bold'
     }
 })
