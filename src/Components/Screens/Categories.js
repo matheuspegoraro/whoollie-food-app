@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } f
 import axios from 'axios';
 import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config'
 
 export default class Categories extends Component {
 
@@ -21,12 +22,15 @@ export default class Categories extends Component {
     componentDidMount() {
 
         var self = this;
-        axios.get('http://technicalassist.com.br/api/categories/products')
+        axios.get(`${GLOBALS.BASE_URL}/api/categories/products`)
             .then(function (response) {
                 console.log(response.data);
                 var temp = [];
                 response.data.forEach(element => {
-                    temp.push(element)
+                    if( element.isActive == "1") {
+                        temp.push(element)
+                    }
+
                 });
 
                 self.setState({ desName: temp })
@@ -49,7 +53,7 @@ export default class Categories extends Component {
                         <TouchableOpacity
                             onPress={() => Actions.Options({ idProductCategory: item.idProductCategory }) }
                         >
-                            <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                            <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `${GLOBALS.BASE_URL}${item.desImagePath}` }}>
                                 <Text style={styles.itemName}>{item.desName}</Text>
                             </ImageBackground>
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, Modal, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config';
 
 
 export default class Login extends Component {
@@ -23,7 +24,7 @@ export default class Login extends Component {
         var self = this;
         this.setState({ isButtonPressed: true })
         // requisicao http usando axios
-        axios.post('http://technicalassist.com.br/api/device/login', {
+        axios.post(`${GLOBALS.BASE_URL}/api/device/login`, {
             desLogin: login,
             desPassword: password
 

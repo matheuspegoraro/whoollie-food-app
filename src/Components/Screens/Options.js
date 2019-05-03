@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config';
 
 export default class Categories extends Component {
 
@@ -30,14 +31,17 @@ export default class Categories extends Component {
     _loadOptions() {
         var self = this;
         // requisicao http usando axios
-        axios.post('http://technicalassist.com.br/api/filter/products', {
+        axios.post(`${GLOBALS.BASE_URL}/api/filter/products`, {
             idProductCategory: this.props.idProductCategory
 
         })
             .then(function (response) {
                 var temp = [];
                 response.data.forEach(element => {
-                    temp.push(element)
+                    if(element.isActive == "1"){
+                        temp.push(element)
+                    }
+                    
                 });
 
                 self.setState({ options: temp })

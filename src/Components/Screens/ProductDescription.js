@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config';
 
 export default class Categories extends Component {
 
@@ -42,7 +43,7 @@ export default class Categories extends Component {
     _loadInfo() {
         var self = this;
         // requisicao http usando axios
-        axios.get(`http://technicalassist.com.br/api/products/${this.props.idProduct}`)
+        axios.get(`${GLOBALS.BASE_URL}/api/products/${this.props.idProduct}`)
             .then(function (response) {
                 var temp = [];
                 response.data.forEach(element => {
@@ -63,7 +64,7 @@ export default class Categories extends Component {
 
         this.setState({ isButtonPressed: true })
 
-        axios.post('http://technicalassist.com.br/api/cart/add', {
+        axios.post(`${GLOBALS.BASE_URL}/api/cart/add`, {
             "idProduct": this.props.idProduct,
             "vlTotal": this.state.qtdProduct
 
@@ -126,7 +127,7 @@ export default class Categories extends Component {
             <View style={styles.container}>
                 <View style={styles.child1}>
                     {/* I needed to map the productInfo by its index and then point to the property I want */}
-                    <Image style={{ flexGrow: 1 }} source={{ uri: `http://technicalassist.com.br${this.state.productInfo.map(index => index.desImagePath)}` }} />
+                    <Image style={{ flexGrow: 1 }} source={{ uri: `${GLOBALS.BASE_URL}${this.state.productInfo.map(index => index.desImagePath)}` }} />
                 </View>
 
                 <View style={styles.child2}>

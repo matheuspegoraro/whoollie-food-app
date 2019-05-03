@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config';
 
 
 export default class Login extends Component {
@@ -23,7 +24,7 @@ export default class Login extends Component {
 
         if (clientName !== '') {
 
-            axios.post('http://technicalassist.com.br/api/open/order', {
+            axios.post(`${GLOBALS.BASE_URL}/api/open/order`, {
                 desName: clientName
             })
                 .then(function (res) {

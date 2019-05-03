@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View } from 'react-native';
 
-import Routes from './Components/Routes';
+import Routes from './src/Components/Routes';
 
 
 

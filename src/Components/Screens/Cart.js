@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, Modal, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import GLOBALS from '../../Config/Config';
 
 
 export default class Cart extends Component {
@@ -23,7 +24,7 @@ export default class Cart extends Component {
     componentWillMount() {
         var self = this;
 
-        axios.get('http://technicalassist.com.br/api/cart')
+        axios.get(`${GLOBALS.BASE_URL}/api/cart`)
         .then(function (response) {
             console.log(response.data);
             var temp = [];
@@ -47,7 +48,7 @@ export default class Cart extends Component {
         this.setState({ isButtonPressed: true })
 
         if(this.state.cartOptions.length > 0) {
-        axios.post('http://technicalassist.com.br/api/request')
+        axios.post(`${GLOBALS.BASE_URL}/api/request`)
             .then(function (response) {
                 // handle success
                 self.setState({ isButtonPressed: false })
@@ -87,11 +88,11 @@ export default class Cart extends Component {
         var self = this;
         this.setState({ isButtonPressed: true })
 
-        axios.post(`http://technicalassist.com.br/api/cart/remove/all/${idProduct}`)
+        axios.post(`${GLOBALS.BASE_URL}/api/cart/remove/all/${idProduct}`)
         .then(function (response) {
             // handle success
 
-            axios.get('http://technicalassist.com.br/api/cart')
+            axios.get(`${GLOBALS.BASE_URL}/api/cart`)
             .then(function (response) {
                 console.log(response.data);
                 var temp = [];
