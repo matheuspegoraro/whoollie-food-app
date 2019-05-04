@@ -19,35 +19,19 @@ export default class Login extends Component {
     componentDidMount() {
         var self = this;
 
-        var test = '';
-
         // requisição HTTP usando axios
-        axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order`)
+        axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
                 console.log(response.data);
                 
-                var temp = [];
-                response.data.forEach(element => {
-                    
-                    test = element.idRequest;
-                    
-                    axios.get(`${GLOBALS.BASE_URL}/api/requests/products/${element.idRequest}`)
-                        .then(function (res) {
-                        
-                        console.log(test);
+                let requests = [];
 
-                        var sub_temp = [];
-                        res.data.forEach(element => {
-                            
-                            console.log(element.desName)
-                            
-                        });
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-                    
+                response.data.forEach(element => {
+                    requests.push(element);
                 });
+
+                console.log(element);
+
             })
             .catch(function (error) {
                 console.log(error);

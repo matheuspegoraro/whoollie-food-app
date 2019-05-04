@@ -77,8 +77,6 @@ export default class Login extends Component {
         }
     }
 
-
-
     render() {
         return (
             <ImageBackground source={require('../imgs/loginImage.jpg')} style={{width: '100%', height: '100%'}}>
